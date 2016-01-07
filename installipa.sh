@@ -1,11 +1,13 @@
 #!/bin/bash
 #set -x
-###############
-#  VARIABLES  #
-###############
-# Location of ideviceinstall/idevice_id cml tools
-IDEVICE_TOOLS_DIR="/usr/local/bin"
 
+######
+# This script depends on the ideviceinstaller and associated command line tools. http://www.libimobiledevice.org/
+#####
+
+hash idevice_id 2>/dev/null || { echo >&2 "idevice_id is required. Please install via `brew install ideviceinstaller` and ensure its in your path."; exit 1; }
+hash ideviceinstaller 2>/dev/null || { echo >&2 "ideviceinstaller is required. Please install via `brew install ideviceinstaller` and ensure its in your path."; exit 1; }
+hash idevicename 2>/dev/null || { echo >&2 "idevicename is required. Please install via `brew install ideviceinstaller` and ensure its in your path."; exit 1; }
 
 ###############
 #  FUNCTIONS  #
@@ -13,14 +15,14 @@ IDEVICE_TOOLS_DIR="/usr/local/bin"
 installIPA(){
 	local APP_TO_INSTALL=$1
 	local DEVICE=$2
-	local DEVICE_NAME=`${IDEVICE_TOOLS_DIR}/idevicename -u ${DEVICE}`
+	local DEVICE_NAME=`idevicename -u ${DEVICE}`
 
 	echo "------------------------------------------------------"
 	echo "Working on:   ${DEVICE_NAME}"
 	echo "Device UDID:  ${DEVICE}"
 	echo ""
 
-    ${IDEVICE_TOOLS_DIR}/ideviceinstaller -i ${APP_TO_INSTALL} -u ${DEVICE}
+    ideviceinstaller -i ${APP_TO_INSTALL} -u ${DEVICE}
     echo ""
 }
 
@@ -32,7 +34,7 @@ doLoopInstall() {
 	touch ~/deviceIDs.txt
 
 	# Output Devices we are installing to
-	${IDEVICE_TOOLS_DIR}/idevice_id -l > ~/deviceIDs.txt
+	idevice_id -l > ~/deviceIDs.txt
 
 	# Loop through all devices listed in deviceIDs.txt and execute Automation on them
 	while read DEVICE; do
