@@ -1,6 +1,8 @@
 /****
 *  Maniupulating google Contacts for testing.
 *  
+*  https://developers.google.com/apps-script/overview
+* 
 *  Google Contacts app lets you import via CSV, which is great for adding thousands of contacts for testing, 
 *   but they cap you to editing/moving/deleting 250 at a time via the GUI. These functions will delete all contacts 
 *   or move `Imported` contacts to the system `My Contacts` group. Once contacts are in that group, they can by sync'd 
