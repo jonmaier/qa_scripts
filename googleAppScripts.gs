@@ -62,7 +62,7 @@ function Contacts_MarkAllContactsMyContacts() {
     
     var z = new Date();
     var delta1 = z - x
-    Logger.log('It took %s ms to delete contact %s', delta1, i );
+    Logger.log('It took %s ms to move contact %s', delta1, i );
 
   } 
   
